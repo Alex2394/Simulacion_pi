@@ -1,0 +1,57 @@
+package simulacion;
+import java.util.Random;
+
+
+public class SimularPi {
+	
+	private int lado;
+	private int puntos;
+	private double PI, PI2;
+	private int circulo = 0, cuadrado = 0;
+	
+	public Double X [], Y[];
+
+	public SimularPi(int lado, int puntos)
+	{
+		this.lado = lado;
+		this.puntos = puntos;
+		ComprobarPi();
+	
+	}
+	
+	public void ComprobarPi()
+	{
+		X = new Double[puntos];
+		Y = new Double[puntos];
+		
+		Random rnd = new Random();
+		float radioP = lado/2;
+        float radioN = radioP * -1;
+        for(int i=0;i<puntos;i++){
+            X[i] = ((double)rnd.nextDouble()* (radioP - radioN) + radioN);
+        }
+        for(int i=0;i<puntos;i++){
+            Y[i] = ((double)rnd.nextDouble()* (radioP - radioN) + radioN);
+        }        
+        
+        for(int i=0;i<puntos;i++){
+            if(Y[i] <= Math.sqrt(radioP*radioP - X[i]*X[i]) && Y[i] >= -1 * (Math.sqrt(radioP*radioP - X[i]*X[i]))){
+                circulo++;
+            }
+            else
+            {
+            	cuadrado++;
+            }
+        }
+        PI = (4*circulo);
+        PI2 = PI/puntos;
+        
+	}
+	
+	public String toString()
+	{
+		return "Numero Pi: "+PI2+"\n"+
+				"Puntos en el circulo: "+circulo+"\n"+
+				"Puntos en el cuadrado: "+cuadrado;
+	}
+}
